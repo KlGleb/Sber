@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="valutes_url">http://www.cbr.ru/scripts/XML_daily.asp</string>
+</resources>

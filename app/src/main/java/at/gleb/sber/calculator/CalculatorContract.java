@@ -1,12 +1,10 @@
 package at.gleb.sber.calculator;
 
-import android.support.annotation.NonNull;
-
-
 import java.util.List;
 
 import at.gleb.sber.BasePresenter;
 import at.gleb.sber.BaseView;
+import at.gleb.sber.data.Valute;
 
 /**
  * This specifies the contract between the view and the presenter.
@@ -14,61 +12,11 @@ import at.gleb.sber.BaseView;
 public interface CalculatorContract {
 
     interface View extends BaseView<Presenter> {
+        void setValutes(List<Valute> valutes);
 
-
-        /*void setLoadingIndicator(boolean active);
-
-        void showTasks(List<Task> tasks);
-
-        void showAddTask();
-
-        void showTaskDetailsUi(String taskId);
-
-        void showTaskMarkedComplete();
-
-        void showTaskMarkedActive();
-
-        void showCompletedTasksCleared();
-
-        void showLoadingTasksError();
-
-        void showNoTasks();
-
-        void showActiveFilterLabel();
-
-        void showCompletedFilterLabel();
-
-        void showAllFilterLabel();
-
-        void showNoActiveTasks();
-
-        void showNoCompletedTasks();
-
-        void showSuccessfullySavedMessage();
-
-        boolean isActive();
-
-        void showFilteringPopUpMenu();*/
     }
 
     interface Presenter extends BasePresenter {
-
-        /*void result(int requestCode, int resultCode);
-
-        void loadTasks(boolean forceUpdate);
-
-        void addNewTask();
-
-        void openTaskDetails(@NonNull Task requestedTask);
-
-        void completeTask(@NonNull Task completedTask);
-
-        void activateTask(@NonNull Task activeTask);
-
-        void clearCompletedTasks();
-
-        void setFiltering(TasksFilterType requestType);
-
-        TasksFilterType getFiltering();*/
+        void stop();
     }
 }

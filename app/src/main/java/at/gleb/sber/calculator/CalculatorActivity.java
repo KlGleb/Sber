@@ -1,7 +1,7 @@
 package at.gleb.sber.calculator;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import at.gleb.sber.R;
 
@@ -21,7 +21,14 @@ public class CalculatorActivity extends AppCompatActivity {
 
 //        Injection.provideTasksRepository(getApplicationContext()),
         // Create the presenter
-        mCalculatorPresenter = new CalculatorPresenter( mCalculatorView);
+        mCalculatorPresenter = new CalculatorPresenter(mCalculatorView, this);
         mCalculatorPresenter.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mCalculatorPresenter.stop();
     }
 }

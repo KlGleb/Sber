@@ -16,7 +16,19 @@
 
 package at.gleb.sber.calculator;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
+
+import java.util.List;
+
+import at.gleb.sber.data.Valute;
+import at.gleb.sber.data.source.LocalDataSource;
+import at.gleb.sber.data.source.RemoteDataSource;
+import at.gleb.sber.data.source.ValutesDataSource;
 
 /**
  * Listens to user actions from the UI ({@link CalculatorView}), retrieves the data and updates the
@@ -24,24 +36,69 @@ import android.support.annotation.NonNull;
  */
 public class CalculatorPresenter implements CalculatorContract.Presenter {
 
-//    private final TasksRepository mTasksRepository;
 
     private final CalculatorContract.View mCalculatorView;
 
-//    private TasksFilterType mCurrentFiltering = TasksFilterType.ALL_TASKS;
+    @NonNull
+    private final Context mContext;
 
-    private boolean mFirstLoad = true;
 
-    public CalculatorPresenter(@NonNull CalculatorContract.View calculatorView) {
-//        mTasksRepository = checkNotNull(tasksRepository, "tasksRepository cannot be null");
+    public CalculatorPresenter(@NonNull CalculatorContract.View calculatorView,
+                               @NonNull Context context) {
         mCalculatorView = calculatorView;
+        mContext = context;
 
         mCalculatorView.setPresenter(this);
     }
 
     @Override
     public void start() {
-//        loadTasks(false);
+        mContext.startService(new Intent(mContext, RemoteDataSource.class));
+
+        LocalBroadcastManager.getInstance(mContext).registerReceiver(
+                receiverError,
+                new IntentFilter(RemoteDataSource.ACTION_VALUTES_ERROR)
+        );
+
+        LocalBroadcastManager.getInstance(mContext).registerReceiver(
+                receiverComplete,
+                new IntentFilter(RemoteDataSource.ACTION_VALUTES_UPDATE)
+        );
+    }
+
+    @Override
+    public void stop() {
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(receiverError);
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(receiverComplete);
+    }
+
+    private BroadcastReceiver receiverComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            loadValutesFromLocalStorage();
+        }
+    };
+
+    private BroadcastReceiver receiverError = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            loadValutesFromLocalStorage();
+        }
+    };
+
+    private void loadValutesFromLocalStorage() {
+        LocalDataSource localDataSource = new LocalDataSource(mContext);
+        localDataSource.getValutesAsync(new ValutesDataSource.LoadValutesCallback() {
+            @Override
+            public void onValutesLoaded(List<Valute> valutes) {
+                mCalculatorView.setValutes(valutes);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
     }
 
 }

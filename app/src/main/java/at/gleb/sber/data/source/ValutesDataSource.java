@@ -1,5 +1,9 @@
 package at.gleb.sber.data.source;
 
+import java.util.List;
+
+import at.gleb.sber.data.Valute;
+
 /**
  * Main entry point for accessing valutes data.
  * <p/>
@@ -7,4 +11,17 @@ package at.gleb.sber.data.source;
  */
 public interface ValutesDataSource {
 
+
+    interface LoadValutesCallback {
+        void onValutesLoaded(List<Valute> valutes);
+
+        void onDataNotAvailable();
+    }
+
+
+    void setLoadedValutesCallback(LoadValutesCallback callback);
+
+    void startLoadValutes();
+
+    void setValutes();
 }
