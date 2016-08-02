@@ -94,4 +94,9 @@ public class Valute implements Serializable {
     public void setValue(String mValue) {
         this.mValue = mValue;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

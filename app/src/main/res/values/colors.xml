@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#FF5722</color>
+
+
+    <!--Primary text     87%-->
+    <color name="textPrimary">#dd000000</color>
+    <!--Secondary text     54%-->
+    <color name="textSecondary">#89000000</color>
+    <!--Hint text, disabled text and icons 38%-->
+    <color name="textHint">#61000000</color>
+
+
+    <!--Light text-->
+    <color name="textLightPrimary">#ffffffff</color>
+    <!--Light secondary text, Opacity 70%-->
+    <color name="textLightSecondary">#b3ffffff</color>
+    <!--Hint text, disabled text and icons, Opacity 30%-->
+    <color name="textLightHint">#4dffffff</color>
 </resources>

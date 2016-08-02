@@ -23,7 +23,7 @@ import at.gleb.sber.data.ValCurs;
 
 /**
  * Сервис, заргужающий данные и записывающий их в кэш
- * <p/>
+ * <p>
  * Created by gleb on 02.08.16.
  */
 public class RemoteDataSource extends IntentService {
@@ -129,7 +129,7 @@ public class RemoteDataSource extends IntentService {
 
     // Reads an InputStream and converts it to a String.
     private String readIt(InputStream stream) throws IOException {
-        java.util.Scanner s = new java.util.Scanner(stream).useDelimiter("\\A");
+        java.util.Scanner s = new java.util.Scanner(stream, "cp1251").useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
 

@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Sber</string>
+    <string name="app_name">Валюты</string>
+    <string name="count_hint">Сумма</string>
+    <string name="from">Из:</string>
+    <string name="to">Конвертируем в:</string>
+    <string name="convert">Конвертировать</string>
 </resources>

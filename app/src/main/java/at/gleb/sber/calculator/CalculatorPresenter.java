@@ -41,6 +41,7 @@ public class CalculatorPresenter implements CalculatorContract.Presenter {
 
     @NonNull
     private final Context mContext;
+    private List<Valute> mData;
 
 
     public CalculatorPresenter(@NonNull CalculatorContract.View calculatorView,
@@ -72,6 +73,28 @@ public class CalculatorPresenter implements CalculatorContract.Presenter {
         LocalBroadcastManager.getInstance(mContext).unregisterReceiver(receiverComplete);
     }
 
+    @Override
+    public void calculate(int selectedItemPosition, int selectedItemPosition1, String s) {
+        if (mData == null) return;
+
+
+        Valute valuteFrom = mData.get(selectedItemPosition);
+        Valute valuteTo = mData.get(selectedItemPosition1);
+
+
+        try {
+            float vFrom = Float.parseFloat(valuteFrom.getValue().replace(",", "."));
+            float vTo = Float.parseFloat(valuteTo.getValue().replace(",", "."));
+            float value = Float.parseFloat(s);
+
+            float result = value * vFrom / vTo;
+
+            mCalculatorView.showResult(result, valuteTo.getCharCode());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
     private BroadcastReceiver receiverComplete = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -92,6 +115,8 @@ public class CalculatorPresenter implements CalculatorContract.Presenter {
             @Override
             public void onValutesLoaded(List<Valute> valutes) {
                 mCalculatorView.setValutes(valutes);
+                mData = valutes;
+
             }
 
             @Override
